@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+*{
+    font-family: "Outfit", sans-serif;
+}
+.active{
+    background-color: #ffebf5;
+    border-color: #c586a5;
+}
