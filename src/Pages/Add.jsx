@@ -44,7 +44,7 @@ const Add = ({ token }) => {
       console.log('Form data:', formDataObj);
   
       const response = await axios.post(
-        `${backendUrl}/api/products-add`,  // Ensure this endpoint is correct
+        `${backendUrl}/api/products/add`,  // Ensure this endpoint is correct
         formData,
         {
           headers: {
@@ -55,8 +55,8 @@ const Add = ({ token }) => {
       );
   
       console.log("Response:", response);
-      if (response.status === 200) {
-        toast.success(response.data.message);
+      if (response.status===201) {
+        toast.success("Product added Succesfully");
         // Reset form data on success
         setName('');
         setDescription('');
@@ -65,6 +65,7 @@ const Add = ({ token }) => {
         setImage3(false);
         setImage4(false);
         setPrice('');
+        setSizes([])
       } else {
         toast.error(response.data);
       }

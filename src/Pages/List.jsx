@@ -1,16 +1,15 @@
-import React from 'react';
+import axios from 'axios';
 import { backendUrl, currency } from '../App';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+
 const List = ({ token }) => {
   const [list, setList] = useState([]);
   const fetchList = async () => {
     try {
       const response = await axios.get(backendUrl + '/api/products/list');
-
-      if (response.status == 200) {
-        setList(response.data);
+      if (response.data.success) {
+        setList(response.data.data);
       } else {
         toast.error(response.data.message);
       }
@@ -23,13 +22,11 @@ const List = ({ token }) => {
   const removeProduct = async (id) => {
     try {
       const response = await axios.post(
-        backendUrl + '/api/products/remove/',
+        backendUrl + '/api/products/remove',
         { id },
-        { headers: {
-          'Content-Type': 'multipart/form-data', // Add content type for form data
-          'Authorization':"eyJhbGciOiJIUzI1NiJ9.YWRtaW5AZm9yZXZlci5jb20xMjM0NTY.Y0VAOIeVngcuIzkUieh0-tIqvBe14JXFm1LipA-IPKM"
-        } }
+        { headers: { token } }
       );
+      console.log(response);
       if (response.data.success) {
         toast.success(response.data.message);
         await fetchList();

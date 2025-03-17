@@ -12,7 +12,7 @@ const Login = ({setToken}) => {
       console.log(`${email},\n ${password}`)
     const response = await axios.post(`${backendUrl}/api/users/adminLogin`,{email, password})
       console.log(response)
-      if(response.status==200){
+      if(response.data.success){
         setToken(response.data.token);
       }else{
         toast.error(response.data.message);
