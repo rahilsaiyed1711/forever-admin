@@ -10,13 +10,11 @@ const Orders = ({ token }) => {
   const [orders, setOrders] = useState([])
 
   const fetchAllOrders = async () => {
-
     if (!token) {
       return null;
     }
     try {
-
-      const response = await axios.post(backendUrl + '/api/order/list', {}, { headers: { token } });
+      const response = await axios.post(backendUrl+'/api/order/list', {}, { headers: { token } });
       if (response.data.success) {
         setOrders(response.data.orders.reverse())
       } else {
@@ -34,16 +32,13 @@ const Orders = ({ token }) => {
     try {
       const response = await axios.post(backendUrl + '/api/order/status', { orderId, status: event.target.value }, { headers: { token } })
       if (response.data.success) {
-        await fetchAllOrders()
-
+        await fetchAllOrders();
       }
     } catch (error) {
       console.log(error);
       toast.error(response.data.message)
     }
   }
-
-
   useEffect(() => {
     fetchAllOrders()
   }, [token])

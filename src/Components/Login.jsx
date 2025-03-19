@@ -14,8 +14,9 @@ const Login = ({setToken}) => {
       console.log(response)
       if(response.data.success){
         setToken(response.data.token);
+        toast.success("Welcome to admin panel");
       }else{
-        toast.error(response.data.message);
+        toast.error("Invalid Email or password");
       }
     }catch(err){
         console.log(err);
